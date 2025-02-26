@@ -11,7 +11,7 @@ export default function Checkout() {
 
     async function CheckoutPayment(values) {
         const { data } = await payment(values)
-        console.log(data);
+        // console.log(data);
         window.location.href = data.session.url
     }
 

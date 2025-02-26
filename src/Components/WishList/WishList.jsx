@@ -10,11 +10,10 @@ import Loader from '../../Loader/Loader';
 export default function WishList() {
 
 
-    const { addProductToWishList, getLoggedWishList, removeWishListProduct } = useContext(WishListContext)
+    const { getLoggedWishList, removeWishListProduct } = useContext(WishListContext)
 
     const { addProductToCart } = useContext(CartContext)
     const [products, setProducts] = useState([])
-
     const [isLoading, setLoader] = useState(false)
 
 
@@ -34,18 +33,12 @@ export default function WishList() {
         }
     }
 
-
-    async function getWishList(id) {
-        const { data } = await addProductToWishList(id)
-
-    }
-
-
-
     async function getWishList() {
         setLoader(true)
         let { data } = await getLoggedWishList()
-        setProducts(data.data)
+        if (data) {
+            setProducts(data.data)
+        }
         setLoader(false)
 
     }
@@ -54,10 +47,9 @@ export default function WishList() {
     async function removeWishList(id) {
         setLoader(true)
         const { data } = await removeWishListProduct(id)
-        setProducts(data.data)
+        getWishList()
         setLoader(false)
     }
-
 
     useEffect(() => {
         getWishList()
@@ -82,8 +74,7 @@ export default function WishList() {
                     </div>
 
 
-                    {products.map((product) =>
-                    (
+                    {products.map((product) => (
                         < div className="row justify-content-between align-items-center mt-4 border-bottom pb-3" key={product._id} >
 
                             <div className="col-md-2">
@@ -100,7 +91,6 @@ export default function WishList() {
                         </div>
                     ))}
                 </div>
-
             )}
     </>)
 }  

@@ -21,11 +21,9 @@ import AllOrders from './Pages/AllOrders/AllOrders';
 import ForgetPassword from './Pages/ForgetPassword/ForgetPassword';
 import WishListContextProvider, { WishListContext } from './Context/WishListContext';
 
-
-
-
 function App() {
 
+  const queryClient = new QueryClient()
   const routers = createBrowserRouter([
     {
       path: '',
@@ -45,16 +43,12 @@ function App() {
         { path: 'Brands', element: <ProtectedRoute><Brands /></ProtectedRoute> },
         { path: 'Checkout', element: <ProtectedRoute><Checkout /></ProtectedRoute> },
         { path: 'allorders', element: <ProtectedRoute><AllOrders /></ProtectedRoute> },
-
-
-
         { path: 'Details/:id', element: <ProtectedRoute><ProductDetails /></ProtectedRoute> },
         { path: '*', element: <NotFound /> }
       ],
     },
   ]);
 
-  const queryClient = new QueryClient()
 
   return (
     <WishListContextProvider>

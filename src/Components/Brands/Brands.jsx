@@ -23,12 +23,11 @@ export default function Brands() {
 
     async function displayBrands() {
         setLoader(true)
-        const { data } = await axios.get(`https://route-ecommerce.onrender.com/api/v1/brands`)
+        const { data } = await axios.get(`https://ecommerce.routemisr.com/api/v1/brands`)
             .then((response) => response)
             .catch((err) => err)
         setBrands(data.data);
         setLoader(false)
-        console.log(data);
     }
 
 

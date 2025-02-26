@@ -25,7 +25,7 @@ export default function MainSlider() {
         <div className="m-auto w-50 p-5">
             <div className="row g-0 p-3">
 
-                <div className="col-md-6">
+                <div className="col-md-6 col-6">
                     < Slider {...settings}>
                         <img src={img1} className='w-100' />
                         <img src={img2} className='w-100' />
@@ -33,7 +33,7 @@ export default function MainSlider() {
                     </Slider>
                 </div>
 
-                <div className="col-md-6">
+                <div className="col-md-6 col-6">
                     <div className="">
                         <img src={img4} className='w-100' />
                     </div>

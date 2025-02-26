@@ -21,10 +21,9 @@ function BrandModal() {
 
 
     async function displayBrands() {
-        const { data } = await axios.get(`https://route-ecommerce.onrender.com/api/v1/brands`)
+        const { data } = await axios.get(`https://ecommerce.routemisr.com/api/v1/brands`)
             .then((response) => response)
             .catch((err) => err)
-        // console.log(data.data);
         setBrands(data.data)
 
 
@@ -34,10 +33,9 @@ function BrandModal() {
 
 
     async function getSpecificBrand(id) {
-        const { data } = await axios.get(`https://route-ecommerce.onrender.com/api/v1/brands/${id}`)
+        const { data } = await axios.get(`https://ecommerce.routemisr.com/api/v1/brands/${id}`)
             .then((response) => response)
             .catch((err) => err)
-        console.log(data.data);
         setSpecificBrands(data.data)
     }
 
@@ -61,7 +59,7 @@ function BrandModal() {
             {brands?.map((brands) =>
             (
                 <>
-                    <div className="col-md-3">
+                    <div className="col-md-3" key={brands._id}>
                         <div className='product cursor-pointer position-relative border rounded text-center' onClick={() => { getSpecificBrand(brands._id) }}>
                             <div className=' position-absolute top-0 bottom-0 start-0 end-0 ' onClick={() => { handleShow() }} >
                             </div>

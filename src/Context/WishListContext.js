@@ -4,52 +4,51 @@ import { createContext } from 'react'
 export const WishListContext = createContext();
 
 
-
-
-
 export default function WishListContextProvider(props) {
 
     let headers = {
         token: localStorage.getItem('userToken')
     }
 
+    async function addProductToWishList(id) {
+        try {
+            const response = await axios.post('https://ecommerce.routemisr.com/api/v1/wishlist',
+                {
+                    productId: id
+                },
+                {
+                    headers
+                }
+            );
+            return response;
+        } catch (err) {
+            return err;
+        }
+    }
 
-    function addProductToWishList(id) {
-        return axios.post('https://route-ecommerce.onrender.com/api/v1/wishlist',
-            {
-                productId: id
-            },
-            {
+    async function getLoggedWishList() {
+        try {
+            const response = await axios.get('https://ecommerce.routemisr.com/api/v1/wishlist', {
                 headers
-            }
-        )
-            .then(response => response)
-            .catch(err => err)
+            });
+            return response;
+        } catch (err) {
+            return err;
+        }
     }
 
+    async function removeWishListProduct(id) {
+        try {
+            const response = await axios.delete(`https://ecommerce.routemisr.com/api/v1/wishlist/${id}`,
+                {
+                    headers
+                });
+            return response;
+        } catch (err) {
+            return err;
+        }
 
-
-    function getLoggedWishList() {
-        return axios.get('https://route-ecommerce.onrender.com/api/v1/wishlist', {
-            headers
-        })
-            .then((response) => response)
-            .catch((err) => err)
     }
-
-
-    function removeWishListProduct(id) {
-        return axios.delete(`https://route-ecommerce.onrender.com/api/v1/wishlist/${id}`,
-            {
-                headers
-            })
-            .then((response) => response)
-            .catch((err) => err)
-    }
-
-
-
-
 
     return (
         <WishListContext.Provider value={{ addProductToWishList, getLoggedWishList, removeWishListProduct }}>{props.children}</WishListContext.Provider>

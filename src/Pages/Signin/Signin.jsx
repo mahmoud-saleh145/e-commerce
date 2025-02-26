@@ -24,7 +24,7 @@ export default function Signin() {
         setLoader(true)
 
         let { data } = await axios.post(
-            "https://route-ecommerce.onrender.com/api/v1/auth/signin",
+            "https://ecommerce.routemisr.com/api/v1/auth/signin",
             values).catch((err) => {
                 setLoader(false);
                 setError(err.response.data.message)
@@ -71,7 +71,7 @@ export default function Signin() {
             password: '',
 
         },
-        validate: validation,
+        validation,
         onSubmit: submitSignin
     });
 
@@ -88,16 +88,16 @@ export default function Signin() {
                 <div className="mb-1">
                     <label htmlFor='email' className='form-label'>Email :</label>
                     <input
-                        vlaue={formik.values.email}
+                        value={formik.values.email}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur} type='email' name='email' className='form-control'></input>
-                    {formik.errors.email && formik.touched.email && (<div className="alert alert-danger mt-3">{formik.errors.email}</div>)}
+                    {formik.errors.email && formik.touched.email && (<div className="alert p-0 alert-danger mt-3">{formik.errors.email}</div>)}
 
                 </div>
                 <div className="mb-1">
                     <label htmlFor='password' className='form-label'>Password :</label>
                     <input
-                        vlaue={formik.values.password}
+                        value={formik.values.password}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                         type='password' name='password' className='form-control'></input>

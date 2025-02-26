@@ -62,18 +62,16 @@ body {
 }
 
 .Category-slider-img {
-  height: 250px;
+  max-height: 210px;
   overflow: hidden;
-
+  object-fit: contain;
+  object-position: center center;
 }
 
-
-
-
-
 .Category-slider-img img {
-  width: 100%;
-  min-height: 253px;
+
+  min-height: 210px;
+
 }
 
 
@@ -81,10 +79,6 @@ body {
   height: 310px;
   overflow: hidden;
 
-}
-
-.category-img img {
-  width: 100%;
 }
 
 .category-card {

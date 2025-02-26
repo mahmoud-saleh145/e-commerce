@@ -29,18 +29,15 @@ export default function Navbar() {
                     <span className="navbar-toggler-icon"></span>
                 </button>
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
-
-
-
                     {userToken && (<ul className="navbar-nav  mb-2 mb-lg-0 text-center mx-auto me-5">
                         <li className="nav-item">
                             <Link to={'/'} className="nav-link">Home</Link>
                         </li>
                         <li className="nav-item">
-                            <Link to={'/Cart'} className="nav-link">cart</Link>
+                            <Link to={'/Cart'} className="nav-link">Cart</Link>
                         </li>
                         <li className="nav-item">
-                            <Link to={'/wishList'} className="nav-link">wish list</Link>
+                            <Link to={'/wishList'} className="nav-link">Wish list</Link>
                         </li>
                         <li className="nav-item">
                             <Link to={'/Product'} className="nav-link">Product</Link>
@@ -49,15 +46,10 @@ export default function Navbar() {
                             <Link to={'/Catagories'} className="nav-link">Catagories</Link>
                         </li>
                         <li className="nav-item">
-                            <Link to={'/Brands'} className="nav-link">brands</Link>
+                            <Link to={'/Brands'} className="nav-link">Brands</Link>
                         </li>
                     </ul>)}
-
-
-
                     <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-
-
                         {userToken ? (
                             <li className="nav-item d-flex">
                                 <Link to={'/Cart'} className='position-relative'>

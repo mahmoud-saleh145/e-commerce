@@ -17,7 +17,7 @@ export default function Products() {
 
 
     function getData() {
-        return axios.get("https://route-ecommerce.onrender.com/api/v1/products")
+        return axios.get("https://ecommerce.routemisr.com/api/v1/products")
     }
 
     let { isLoading, data } = useQuery('Products', getData)
@@ -47,7 +47,6 @@ export default function Products() {
 
     async function addWishList(id) {
         let { data } = await addProductToWishList(id)
-        console.log(data);
         if (data.status === "success") {
             toast.success(data.message, {
                 position: 'top-right',
@@ -58,9 +57,6 @@ export default function Products() {
             })
         }
     }
-
-
-
 
 
 
@@ -78,6 +74,7 @@ export default function Products() {
 
                         {isLoading ? <Loader />
                             : data.data.data.map((product) => (
+                                // \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
                                 <div className="col-md-3 product rounded py-3">
                                     <Link to={`../Details/${product.id}`}>
                                         <img src={product.imageCover} className='w-100' />
@@ -96,7 +93,9 @@ export default function Products() {
                                         <i className="fa-solid fa-heart fs-3 mt-2 cursor-pointer " onClick={() => { addWishList(product.id) }}></i>
                                     </div>
                                 </div>
+                                // ///////////////////////////////////////////////////////////
                             )
+
                             )}
                     </div>
                 </div>

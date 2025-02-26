@@ -9,7 +9,7 @@ export default function CategorySlider() {
 
 
     function getData() {
-        return axios.get("https://route-ecommerce.onrender.com/api/v1/categories")
+        return axios.get("https://ecommerce.routemisr.com/api/v1/categories")
     }
     const { data } = useQuery('CategorySlider', getData)
 
@@ -25,11 +25,11 @@ export default function CategorySlider() {
     return (
 
         <Slider {...settings}>
-            {data?.data.data.map((category) => <>
-                <div className="container-flued ">
-                    <div className="my-3">
+            {data?.data.data.map((category, index) => <>
+                <div className="container-flued" key={index}>
+                    <div className="my-3 ">
                         <div className='Category-slider-img d-flex align-items-center justify-content-center'>
-                            <img src={category.image} alt={category.name} />
+                            <img src={category.image} alt={category.name} className='w-100' />
                         </div>
                         <h4>{category.name}</h4>
                     </div>

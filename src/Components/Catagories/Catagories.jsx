@@ -15,7 +15,7 @@ export default function Catagories() {
 
     async function getCategory() {
         setLoader(true)
-        const { data } = await axios.get(`https://route-ecommerce.onrender.com/api/v1/categories`)
+        const { data } = await axios.get(`https://ecommerce.routemisr.com/api/v1/categories`)
             .then((response) => response)
             .catch((err) => err)
         setCategory(data.data);
@@ -26,7 +26,7 @@ export default function Catagories() {
 
     async function displaySubcategory(id, name) {
         setLoader(true)
-        const { data } = await axios.get(`https://route-ecommerce.onrender.com/api/v1/categories/${id}/subcategories`)
+        const { data } = await axios.get(`https://ecommerce.routemisr.com/api/v1/categories/${id}/subcategories`)
             .then((response) => response)
             .catch((err) => err)
         setSubCategory(data);

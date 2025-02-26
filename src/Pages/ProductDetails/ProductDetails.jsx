@@ -18,6 +18,7 @@ export default function ProductDetails() {
 
 
     let { id } = useParams()
+
     const [details, setDetails] = useState([])
     var settings = {
         dots: true,
@@ -32,7 +33,7 @@ export default function ProductDetails() {
     async function addWishList(id) {
         setLoader(true)
         let { data } = await addProductToWishList(id)
-        console.log(data);
+        // console.log(data);
         if (data.status === "success") {
             setLoader(false)
             toast.success(data.message, {
@@ -49,7 +50,7 @@ export default function ProductDetails() {
 
     async function getProductDetails() {
         setLoader(true)
-        const { data } = await axios.get(`https://route-ecommerce.onrender.com/api/v1/products/${id}`)
+        const { data } = await axios.get(`https://ecommerce.routemisr.com/api/v1/products/${id}`)
         setDetails(data.data)
         setLoader(false)
     }
@@ -92,6 +93,7 @@ export default function ProductDetails() {
                 <Helmet>
                     <title>Product Details</title>
                 </Helmet>
+
                 <div className="row align-items-center">
 
                     <div className="col-md-4 mb-5">

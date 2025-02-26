@@ -5,7 +5,6 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { RotatingLines } from 'react-loader-spinner'
 import { Helmet } from 'react-helmet'
-import { UserContext } from '../../Context/UserContext'
 import Loader from '../../Loader/Loader'
 
 export default function Register() {
@@ -19,7 +18,7 @@ export default function Register() {
         setLoader(true)
         setIsLoader(true)
         let { data } = await axios.post(
-            "https://route-ecommerce.onrender.com/api/v1/auth/signup",
+            "https://ecommerce.routemisr.com/api/v1/auth/signup",
             values).catch((err) => {
                 setLoader(false);
                 setError(err.response.data.message)
@@ -30,8 +29,6 @@ export default function Register() {
             setIsLoader(false)
             setError(null)
             navigate("/Signin")
-
-
         }
     }
 
@@ -73,7 +70,6 @@ export default function Register() {
         return errors;
     }
 
-
     let formik = useFormik({
         initialValues: {
             name: '',
@@ -87,12 +83,7 @@ export default function Register() {
     });
 
     return (
-
-
-
-
         <>
-
             {isLoading ? (
                 <Loader />
             ) : (
