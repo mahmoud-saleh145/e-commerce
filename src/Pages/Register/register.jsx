@@ -14,28 +14,51 @@ export default function Register() {
     const [isLoading, setIsLoader] = useState(false)
     let navigate = useNavigate();
 
+    const [show, setShow] = useState(false)
+
+    const showPassword = () => {
+        setShow(!show)
+    }
+    const [showRepass, setShowRepass] = useState(false)
+
+    const showRePassword = () => {
+        setShowRepass(!showRepass)
+    }
+
     async function submitForm(values) {
         setLoader(true)
         setIsLoader(true)
-        let { data } = await axios.post(
+        let data = await axios.post(
             "https://ecommerce.routemisr.com/api/v1/auth/signup",
-            values).catch((err) => {
-                setLoader(false);
-                setError(err.response.data.message)
+            {
 
-            });
-        if (data.message === "success") {
-            setLoader(false)
+                "name": values.name,
+                "email": values.email,
+                "password": values.password,
+                "rePassword": values.rePassword,
+                "phone": values.phone
+            }
+        ).catch((err) => {
+            setLoader(false);
             setIsLoader(false)
+            setError(err.response.data.message)
+            console.log(err.response.data.message);
+            console.log(err.response.data.errors.msg);
+
+        });
+        console.log(data)
+        if (data.data.message === "success") {
             setError(null)
             navigate("/Signin")
         }
+        setLoader(false)
+        setIsLoader(false)
     }
 
     function validation(values) {
         let errors = {};
         let emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-        let phoneRegex = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/
+        let phoneRegex = /^01[0-9]{9}$/
         let passRegex = /^(?=.*\d)(?=.*[a-z])[0-9a-zA-Z]{8,}$/
         if (values.name === "") {
             errors.name = "name is required";
@@ -53,7 +76,7 @@ export default function Register() {
         if (values.password === "") {
             errors.password = "password is required";
         } else if (!passRegex.test(values.password)) {
-            errors.password = "must be * Start with a letter(either uppercase or lowercase).* Be between 6 and 9 characters in total.Can only contain letters(A - Z or a - z) and numbers(0 - 9)";
+            errors.password = "must be * Start with a letter(either uppercase or lowercase).* Be more then 6 characters.Can only contain letters(A - Z or a - z) and numbers(0 - 9)";
         }
 
         if (values.rePassword === "") {
@@ -87,7 +110,7 @@ export default function Register() {
             {isLoading ? (
                 <Loader />
             ) : (
-                <div className=' container my-5'>
+                <div className=' container my-5 px-4'>
                     <Helmet>
                         <title>Register</title>
                     </Helmet>
@@ -99,6 +122,7 @@ export default function Register() {
                         <div className="mb-1">
                             <label htmlFor='name' className='form-label'>Name :</label>
                             <input
+                                autoComplete='off'
                                 value={formik.values.name}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
@@ -108,6 +132,7 @@ export default function Register() {
                         <div className="mb-1">
                             <label htmlFor='email' className='form-label'>Email :</label>
                             <input
+                                autoComplete='off'
                                 value={formik.values.email}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur} type='email' name='email' className='form-control'></input>
@@ -116,27 +141,35 @@ export default function Register() {
                         </div>
                         <div className="mb-1">
                             <label htmlFor='password' className='form-label'>Password :</label>
-                            <input
-                                value={formik.values.password}
-                                onChange={formik.handleChange}
-                                onBlur={formik.handleBlur}
-                                type='password' name='password' className='form-control'></input>
-                            {formik.errors.password && formik.touched.password && (<div className="alert alert-danger mt-3">{formik.errors.password}</div>)}
+                            <div className="position-relative">
+                                <input
+                                    autoComplete='off'
+                                    value={formik.values.password}
+                                    onChange={formik.handleChange}
+                                    onBlur={formik.handleBlur}
+                                    type={show ? "" : "password"} name='password' className='form-control'></input>
+                                <div className='position-absolute top-50 end-0 translate-middle show-password cursor-pointer ' onClick={showPassword}><i className="fa-solid fa-eye"></i></div>
 
+                            </div>
+                            {formik.errors.password && formik.touched.password && (<div className="alert alert-danger mt-3">{formik.errors.password}</div>)}
                         </div>
                         <div className="mb-1">
                             <label htmlFor='rePassword' className='form-label'>Re-password :</label>
-                            <input
-                                value={formik.values.rePassword}
-                                onChange={formik.handleChange}
-                                onBlur={formik.handleBlur}
-                                type='password' name='rePassword' className='form-control'></input>
+                            <div className="position-relative">
+                                <input
+                                    autoComplete='off'
+                                    value={formik.values.rePassword}
+                                    onChange={formik.handleChange}
+                                    onBlur={formik.handleBlur}
+                                    type={showRepass ? "" : "password"} name='rePassword' className='form-control'></input>
+                                <div className='position-absolute top-50 end-0 translate-middle show-password cursor-pointer ' onClick={showRePassword}><i className="fa-solid fa-eye"></i></div>
+                            </div>
                             {formik.errors.rePassword && formik.touched.rePassword && (<div className="alert alert-danger mt-3">{formik.errors.rePassword}</div>)}
-
                         </div>
                         <div className="mb-1">
                             <label htmlFor='phone' className='form-label'>phone :</label>
                             <input
+                                autoComplete='off'
                                 value={formik.values.phone}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur} type='text' name='phone' className='form-control'></input>

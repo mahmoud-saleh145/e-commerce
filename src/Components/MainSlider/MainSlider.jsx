@@ -16,31 +16,38 @@ export default function MainSlider() {
         speed: 500,
         slidesToShow: 1,
         slidesToScroll: 1,
-        arrows: false
+        arrows: false,
+        autoplay: true,
+        autoplaySpeed: 4000,
+        pauseOnHover: true,
     };
 
 
 
     return (
-        <div className="m-auto w-50 p-5">
-            <div className="row g-0 p-3">
+        <div className="row  p-4">
+            <div className="col-md-6 m-auto">
 
-                <div className="col-md-6 col-6">
-                    < Slider {...settings}>
-                        <img src={img1} className='w-100' />
-                        <img src={img2} className='w-100' />
-                        <img src={img3} className='w-100' />
-                    </Slider>
+                <div className="row  g-0 p-3">
+
+                    <div className="col-md-6 col-6">
+                        < Slider {...settings}>
+                            <img src={img1} className='w-100' />
+                            <img src={img2} className='w-100' />
+                            <img src={img3} className='w-100' />
+                        </Slider>
+                    </div>
+
+                    <div className="col-md-6 col-6">
+                        <div className="">
+                            <img src={img4} className='w-100' />
+                        </div>
+                        <div className="">
+                            <img src={img5} className='w-100' />
+                        </div>
+                    </div>
                 </div>
 
-                <div className="col-md-6 col-6">
-                    <div className="">
-                        <img src={img4} className='w-100' />
-                    </div>
-                    <div className="">
-                        <img src={img5} className='w-100' />
-                    </div>
-                </div>
             </div>
         </div>
     )

@@ -1,8 +1,9 @@
 import React, { useContext, useEffect } from 'react'
 import './LayOut.module.css'
-import Navbar from './../../Components/Navbar/Navbar';
+
 import { Outlet } from 'react-router-dom';
 import { UserContext } from '../../Context/UserContext';
+import MainNavbar from './../../Components/Navbar/Navbar';
 
 
 export default function LayOut() {
@@ -16,7 +17,7 @@ export default function LayOut() {
 
     return (
         <>
-            <Navbar />
+            <MainNavbar />
             <Outlet />
 
         </>

@@ -38,6 +38,7 @@ export default function ProductDetails() {
             setLoader(false)
             toast.success(data.message, {
                 position: 'top-right',
+                autoClose: 500,
                 style: {
                     backgroundColor: '#499A49',
                     color: 'white',
@@ -72,6 +73,7 @@ export default function ProductDetails() {
             setLoader(false)
             toast.success(data.message, {
                 position: 'top-right',
+                autoClose: 500,
                 style: {
                     backgroundColor: '#499A49',
                     color: 'white'
@@ -89,7 +91,7 @@ export default function ProductDetails() {
         isLoading ? (
             <Loader />
         ) : (
-            <div className="container py-5">
+            <div className="container p-5">
                 <Helmet>
                     <title>Product Details</title>
                 </Helmet>
@@ -102,9 +104,7 @@ export default function ProductDetails() {
                                 <img src={ele} className='w-100' alt="" />
                             </>)}
                         </Slider>
-
                     </div>
-
                     <div className="col-md-8">
                         <h2>{details.title}</h2>
                         <p>{details.description}</p>

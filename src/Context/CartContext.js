@@ -93,7 +93,7 @@ export default function CartContextProvider(props) {
 
     useEffect(() => {
         displayInitialValue()
-    })
+    }, [])
 
     return (
         <CartContext.Provider value={{ addProductToCart, getLoggedCart, removeCartProduct, updateProductQuantity, setNumOfCartItems, numOfCartItems, payment, clearCart }}>{props.children}</CartContext.Provider>
