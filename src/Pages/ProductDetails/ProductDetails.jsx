@@ -67,63 +67,73 @@ export default function ProductDetails() {
 
 
     async function addProduct(id) {
-        setLoader(true)
-        let { data } = await addProductToCart(id)
-        if (data.status === "success") {
-            setLoader(false)
-            toast.success(data.message, {
-                position: 'top-right',
-                autoClose: 500,
-                style: {
-                    backgroundColor: '#499A49',
-                    color: 'white'
-                },
-            })
-            setNumOfCartItems(data.numOfCartItems)
+        setLoader(true);
+
+        try {
+            const res = await addProductToCart(id);
+            const data = res?.data;
+
+            if (data?.status === "success") {
+                toast.success(data.message, {
+                    position: 'top-right',
+                    autoClose: 500,
+                    style: {
+                        backgroundColor: '#499A49',
+                        color: 'white'
+                    },
+                });
+
+                setNumOfCartItems(data.numOfCartItems);
+            } else {
+                toast.error("Something went wrong");
+            }
+        } catch (error) {
+            toast.error("Failed to add product");
+            console.log(error);
+        } finally {
+            setLoader(false);
         }
     }
 
 
+    return (<>
+        {
+            isLoading ? (
+                <Loader />
+            ) : (
+                <div className="container p-5">
+                    <Helmet>
+                        <title>Product Details</title>
+                    </Helmet>
 
+                    <div className="row align-items-center">
 
-
-    return (<>        {
-        isLoading ? (
-            <Loader />
-        ) : (
-            <div className="container p-5">
-                <Helmet>
-                    <title>Product Details</title>
-                </Helmet>
-
-                <div className="row align-items-center">
-
-                    <div className="col-md-4 mb-5">
-                        <Slider {...settings}>
-                            {details.images?.map((ele) => <>
-                                <img src={ele} className='w-100' alt="" />
-                            </>)}
-                        </Slider>
-                    </div>
-                    <div className="col-md-8">
-                        <h2>{details.title}</h2>
-                        <p>{details.description}</p>
-                        <div className='d-flex justify-content-between align-items-center'>
-                            <span>{details.price} EGP</span>
-                            <span>
-                                {details.ratingsAverage}
-                                <i className="fa fa-star rating-color"></i>
-                            </span>
+                        <div className="col-md-4 mb-5">
+                            <Slider {...settings}>
+                                {details.images?.map((img, i) => (
+                                    <img key={i} src={img} className="w-100" alt="" />
+                                ))}
+                            </Slider>
                         </div>
-                        <div className='d-flex justify-content-between align-items-center mt-4' >
-                            <button className='btn btn-success w-75 ms-5' onClick={() => { addProduct(details.id) }}>+Add</button>
-                            <i className="fa-solid fa-heart fs-3 mt-2 cursor-pointer " onClick={() => { addWishList(details.id) }}></i>
+                        <div className="col-md-8">
+                            <h2>{details.title}</h2>
+                            <p>{details.description}</p>
+                            <div className='d-flex justify-content-between align-items-center'>
+                                <span>{details.price} EGP</span>
+                                <span>
+                                    {details.ratingsAverage}
+                                    <i className="fa fa-star rating-color"></i>
+                                </span>
+                            </div>
+                            <div className='d-flex justify-content-between align-items-center mt-4' >
+                                <button className='btn btn-success w-75 ms-5' onClick={() => { addProduct(details.id) }}>+Add</button>
+                                <i className="fa-solid fa-heart fs-3 mt-2 cursor-pointer " onClick={() => { addWishList(details.id) }}></i>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        )
-    }
+            )
+        }
     </>
     )
 }

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import './Navbar.module.css'
 import { Link, useNavigate } from 'react-router-dom'
 import { UserContext } from '../../Context/UserContext'
@@ -13,14 +13,12 @@ export default function MainNavbar() {
     const { numOfCartItems } = useContext(CartContext)
 
     let navigate = useNavigate()
+
     function logOut() {
         localStorage.removeItem("userToken")
         setUserToken(null)
         navigate('Signin')
     }
-
-
-
 
     return (
         <>
@@ -61,7 +59,7 @@ export default function MainNavbar() {
 
                                 <li className="nav-item d-flex align-items-center">
                                     <Link to={'/Cart'} className='position-relative '>
-                                        <i out className="fa-solid fa-cart-shopping fs-2 me-3  "></i>
+                                        <i out className="fa-solid fa-cart-shopping fs-2 me-3"></i>
                                         <span className='position-absolute top-0 start-50 translate-middle bg-main text-light rounded fw-bold p-1 cart-number'>{numOfCartItems}</span>
                                     </Link>
                                     <span onClick={() => {
@@ -78,16 +76,12 @@ export default function MainNavbar() {
                                     <li className="nav-item">
                                         <Link to={'/Signin'} className="nav-link">log in</Link>
                                     </li>
-
                                 </>
                             )}
                         </ul>
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
-
         </>
-
-
     )
 }

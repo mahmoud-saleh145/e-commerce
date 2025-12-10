@@ -15,11 +15,12 @@ export default function LayOut() {
         }
     }, [])
 
+
+
     return (
         <>
             <MainNavbar />
             <Outlet />
-
         </>
     )
 }

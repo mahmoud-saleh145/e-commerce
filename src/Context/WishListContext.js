@@ -6,8 +6,8 @@ export const WishListContext = createContext();
 
 export default function WishListContextProvider(props) {
 
-    let headers = {
-        token: localStorage.getItem('userToken')
+    function getHeaders() {
+        return { token: localStorage.getItem('userToken') };
     }
 
     async function addProductToWishList(id) {
@@ -17,7 +17,7 @@ export default function WishListContextProvider(props) {
                     productId: id
                 },
                 {
-                    headers
+                    headers: getHeaders()
                 }
             );
             return response;
@@ -29,7 +29,7 @@ export default function WishListContextProvider(props) {
     async function getLoggedWishList() {
         try {
             const response = await axios.get('https://ecommerce.routemisr.com/api/v1/wishlist', {
-                headers
+                headers: getHeaders()
             });
             return response;
         } catch (err) {
@@ -41,7 +41,7 @@ export default function WishListContextProvider(props) {
         try {
             const response = await axios.delete(`https://ecommerce.routemisr.com/api/v1/wishlist/${id}`,
                 {
-                    headers
+                    headers: getHeaders()
                 });
             return response;
         } catch (err) {

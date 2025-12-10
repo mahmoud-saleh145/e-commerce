@@ -2,15 +2,15 @@ import axios from "axios";
 import { createContext, useEffect, useState } from "react";
 
 export const CartContext = createContext();
+
 export default function CartContextProvider(props) {
+
 
     const [numOfCartItems, setNumOfCartItems] = useState(0)
     const [cartId, setCartId] = useState('')
-
-    let headers = {
-        token: localStorage.getItem('userToken')
+    function getHeaders() {
+        return { token: localStorage.getItem('userToken') };
     }
-
 
     async function addProductToCart(id) {
         try {
@@ -19,7 +19,7 @@ export default function CartContextProvider(props) {
                     productId: id
                 },
                 {
-                    headers
+                    headers: getHeaders()
                 }
             );
             return response;
@@ -32,7 +32,7 @@ export default function CartContextProvider(props) {
         try {
             const response = await axios.delete(`https://ecommerce.routemisr.com/api/v1/cart/${id}`,
                 {
-                    headers
+                    headers: getHeaders()
                 });
             return response;
         } catch (err) {
@@ -45,7 +45,7 @@ export default function CartContextProvider(props) {
             const response = await axios.put(`https://ecommerce.routemisr.com/api/v1/cart/${id}`, {
                 count,
             }, {
-                headers
+                headers: getHeaders()
             });
             return response;
         } catch (err) {
@@ -55,7 +55,7 @@ export default function CartContextProvider(props) {
 
     async function clearCart() {
         try {
-            const response = await axios.delete('https://ecommerce.routemisr.com/api/v1/cart', { headers });
+            const response = await axios.delete('https://ecommerce.routemisr.com/api/v1/cart', { headers: getHeaders() });
             return response;
         } catch (err) {
             return err;
@@ -67,33 +67,45 @@ export default function CartContextProvider(props) {
             const response = await axios.post(`https://ecommerce.routemisr.com/api/v1/orders/checkout-session/${cartId}?url=http://localhost:3000`, {
                 shippingAddress: shippingAddress
             },
-                { headers });
+                {
+                    headers: getHeaders()
+                });
             return response;
         } catch (err) {
             return err;
         }
     }
 
-    async function displayInitialValue() {
-        const { data } = await getLoggedCart()
-        setNumOfCartItems(data?.numOfCartItems)
-        setCartId(data?.data._id)
-    }
 
     async function getLoggedCart() {
         try {
             const response = await axios.get('https://ecommerce.routemisr.com/api/v1/cart', {
-                headers
+                headers: getHeaders()
             });
+
             return response;
         } catch (err) {
             return err;
+        }
+    }
+    async function displayInitialValue() {
+        const headers = getHeaders()
+        if (headers.token !== null) {
+            const { data } = await getLoggedCart()
+            // console.log(data)
+            if (data?.status === "success") {
+                setNumOfCartItems(data?.numOfCartItems)
+                setCartId(data?.data._id)
+            }
+
         }
     }
 
     useEffect(() => {
         displayInitialValue()
+
     }, [])
+
 
     return (
         <CartContext.Provider value={{ addProductToCart, getLoggedCart, removeCartProduct, updateProductQuantity, setNumOfCartItems, numOfCartItems, payment, clearCart }}>{props.children}</CartContext.Provider>

@@ -26,7 +26,7 @@ function App() {
   const queryClient = new QueryClient()
   const routers = createBrowserRouter([
     {
-      path: '',
+      path: '/',
       element: <LayOut />,
       children: [
         {
@@ -34,16 +34,16 @@ function App() {
           element: <ProtectedRoute> <Home /></ProtectedRoute>,
         },
         { path: 'register', element: <Register /> },
-        { path: 'Signin', element: <Signin /> },
-        { path: 'Forgetpassword', element: <ForgetPassword /> },
-        { path: 'Cart', element: <ProtectedRoute><Cart /></ProtectedRoute> },
-        { path: 'WishList', element: <ProtectedRoute><WishList /></ProtectedRoute> },
-        { path: 'Product', element: <ProtectedRoute><Products /></ProtectedRoute> },
-        { path: 'Catagories', element: <ProtectedRoute><Catagories /></ProtectedRoute> },
-        { path: 'Brands', element: <ProtectedRoute><Brands /></ProtectedRoute> },
-        { path: 'Checkout', element: <ProtectedRoute><Checkout /></ProtectedRoute> },
+        { path: 'signin', element: <Signin /> },
+        { path: 'forgetpassword', element: <ForgetPassword /> },
+        { path: 'cart', element: <ProtectedRoute><Cart /></ProtectedRoute> },
+        { path: 'wishList', element: <ProtectedRoute><WishList /></ProtectedRoute> },
+        { path: 'product', element: <ProtectedRoute><Products /></ProtectedRoute> },
+        { path: 'catagories', element: <ProtectedRoute><Catagories /></ProtectedRoute> },
+        { path: 'brands', element: <ProtectedRoute><Brands /></ProtectedRoute> },
+        { path: 'checkout', element: <ProtectedRoute><Checkout /></ProtectedRoute> },
         { path: 'allorders', element: <ProtectedRoute><AllOrders /></ProtectedRoute> },
-        { path: 'Details/:id', element: <ProtectedRoute><ProductDetails /></ProtectedRoute> },
+        { path: 'details/:id', element: <ProtectedRoute><ProductDetails /></ProtectedRoute> },
         { path: '*', element: <NotFound /> }
       ],
     },

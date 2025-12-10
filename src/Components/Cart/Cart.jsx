@@ -1,25 +1,16 @@
-import React, { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import './Cart.module.css'
 import { CartContext } from '../../Context/CartContext'
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 import Loader from '../../Loader/Loader';
 
-
-
 export default function Cart() {
 
     const { getLoggedCart, removeCartProduct, updateProductQuantity, numOfCartItems, setNumOfCartItems, clearCart } = useContext(CartContext)
     const [products, setProducts] = useState([])
     const [cartPrice, setCartPrice] = useState(0)
-
-
-
-
     const [isLoading, setLoader] = useState(false)
-
-
-
 
     async function removeProduct(id) {
         setLoader(true)
@@ -28,22 +19,16 @@ export default function Cart() {
         setProducts(data.data.products)
         setCartPrice(data.data.totalCartPrice)
         setNumOfCartItems(data.numOfCartItems)
-
-
     }
-
-
-
 
     async function updateCount(id, count) {
         setLoader(true)
         const { data } = await updateProductQuantity(id, count)
-        setLoader(false)
         setProducts(data.data.products)
         setCartPrice(data.data.totalCartPrice)
+        setLoader(false)
 
     }
-
 
     async function getCart() {
         setLoader(true)
@@ -64,12 +49,9 @@ export default function Cart() {
         }
     }
 
-
-
     useEffect(() => {
         getCart()
     }, []);
-
 
     async function clear() {
         setLoader(true)
@@ -83,30 +65,20 @@ export default function Cart() {
         }
     }
 
-
-
-
     return (<>
-
         {isLoading ? (
             <Loader />
         ) : (
-
-
             <div className="pt-lg-4 mx-sm-4">
                 <Helmet>
                     <title>Cart</title>
                 </Helmet>
                 <div className="container bg-light p-5 mt-md-5 ">
                     <div className="d-flex flex-column justify-content-between align-items-center ">
-
                         <div className="d-flex justify-content-between w-100">
                             <h2 className=' mb-4'>Cart Shop:</h2>
                             <Link to={'/Checkout'} className='btn btn-primary mb-3 fs-5 py-2 text-white ' > check out</Link>
                         </div>
-
-
-
                         <div className='d-flex justify-content-between w-100 flex-lg-row flex-column' >
                             <p className='fs-5 fw-semibold '>total number of items: <span className='text-main'>{numOfCartItems}</span></p>
                             <p className='fs-5 fw-semibold '>total price: <span className='text-main'>{cartPrice} </span> EGP</p>
@@ -143,18 +115,13 @@ export default function Cart() {
                                 </div>
                             </>
                             ))}
-
                     </div>
-
                     {products.length > 0 ?
 
                         <div className="d-flex justify-content-center">
                             <button className='btn btn-outline-success mt-4' onClick={() => clear()}>clear your cart</button>
                         </div>
                         : ''}
-
-
-
                 </div>
             </div >
         )}

@@ -48,8 +48,8 @@ export default function CategorySlider() {
     return (
 
         <Slider {...settings}>
-            {data?.data.data.map((category, index) => <>
-                <div className="container-flued" key={index}>
+            {data?.data.data.map((category) => <>
+                <div className="container-flued" key={category.id}>
                     <div className="my-3 ">
                         <div className='Category-slider-img d-flex align-items-center justify-content-center'>
                             <img src={category.image} alt={category.name} className='w-100' />

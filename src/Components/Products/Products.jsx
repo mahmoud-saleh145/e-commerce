@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import './Products.module.css'
 import { Helmet } from 'react-helmet'
 import axios from 'axios'
@@ -22,13 +22,21 @@ export default function Products() {
 
     let { isLoading, data } = useQuery('Products', getData)
 
-    const [filteredData, setFilteredData] = useState(data.data.data)
+    console.log(data);
+
+    const [filteredData, setFilteredData] = useState([]);
+
+    useEffect(() => {
+        if (data?.data?.data) {
+            setFilteredData(data.data.data);
+        }
+    }, [data]);
 
     async function addProduct(id) {
         let { data } = await addProductToCart(id)
 
 
-        if (data.status === "success") {
+        if (data?.status === "success") {
             toast.success(data.message, {
                 position: 'top-right',
                 autoClose: 500,
@@ -61,7 +69,7 @@ export default function Products() {
     const handleSearch = (e) => {
         const query = e.target.value.toLowerCase();
         console.log(query);
-        const filteredData = data.data.data.filter((product) => product.title.toLowerCase().includes(query));
+        const filteredData = data.data.data.filter((product) => product.title.toLowerCase().includes(query)) || [];
         setFilteredData(filteredData)
     };
 

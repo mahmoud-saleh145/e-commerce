@@ -1,4 +1,3 @@
-import React from 'react'
 import './Home.module.css'
 import FeaturedProduct from '../../Components/FeaturedProduct/FeaturedProduct'
 import CategorySlider from './../../Components/CategorySlider/CategorySlider';

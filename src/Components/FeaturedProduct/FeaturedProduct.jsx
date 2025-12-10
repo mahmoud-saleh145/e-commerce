@@ -13,6 +13,7 @@ export default function FeaturedProduct() {
     function getData() {
         return axios.get("https://ecommerce.routemisr.com/api/v1/products")
     }
+
     let { isLoading, data } = useQuery('FeaturedProduct', getData)
 
     const { addProductToCart, setNumOfCartItems } = useContext(CartContext)
@@ -51,8 +52,8 @@ export default function FeaturedProduct() {
     }
 
     return (
-        <div className="container py-5">
-            <div className="row  mx-3 g-3">
+        <div className="container py-5 mt-5">
+            <div className="row  mx-1 g-3">
                 {isLoading ? <Loader />
                     :
                     data.data.data.map((product) => (
